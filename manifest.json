@@ -1,0 +1,34 @@
+{
+  "manifest_version": 3,
+  "name": "Syntex Browser Extension",
+  "description": "Hold all your notes together while surfing the web",
+  "version": "0.0.1",
+  "author": "Ofoegbu Victor",
+  "action": {
+    "default_icon": {
+      "48": "images/icon-48px.png",
+      "64": "images/icon-64px.png",
+      "128": "images/icon-128px.png"
+    },
+    "default_title": "Notes",
+    "default_popup": "popup.html"
+  },
+  "homepage_url": "https://github.com/vickOnrails",
+  "icons": {
+    "48": "images/icon-48px.png",
+    "64": "images/icon-64px.png",
+    "128": "images/icon-128px.png"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["http://*/*", "https://*/*"],
+      "css": ["content.css"],
+      "js": ["content.js"]
+    }
+  ],
+  "options_page": "options.html",
+  "permissions": ["tabs", "contextMenus", "activeTab", "scripting", "storage"]
+}
