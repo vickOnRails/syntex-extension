@@ -1,26 +1,70 @@
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk&display=swap");
+
 /* Content CSS */
-.notes-modal {
+.syntex-notes-modal {
+  --background-color: #ebf3ff;
+  --white: #fff;
+  --accent-color: #2f80ed;
+  --grey: #e5e5e5;
+  --text-color: #333333;
+
+  font-family: "space grotesk", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-weight: 400;
   position: fixed;
+  line-height: 1.4;
+  font-size: 14px;
+  color: var(--text-color);
+
+  padding: 1em;
+  margin: 1em;
   bottom: 1em;
   right: 1em;
-  background: white;
-  z-index: 999;
-  border: 1px solid red;
-  height: 400px;
-  max-width: 20%;
-  padding: 1em;
-  box-shadow: 0 0 0 5px rgba(0, 0, 0, 0.15);
-  overflow: scroll;
+
+  background: var(--background-color);
+  max-width: 20em;
+  border-radius: 8px;
+
+  box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.2);
+  z-index: 9999;
 }
-.notes-modal.hidden {
+.syntex-notes-modal input:focus,
+.syntex-notes-modal textarea:focus {
+  outline: 2px solid var(--accent-color);
+}
+.syntex-notes-modal.hidden {
   display: none;
 }
-.notes-modal input {
-  margin-bottom: 1em;
-  width: 100%;
+.syntex-notes-modal textarea {
+  min-height: 100px;
 }
-.notes-modal textarea {
-  width: 100%;
-  height: 100px;
+.syntex-notes-modal textarea,
+.syntex-notes-modal input {
   margin-bottom: 1em;
+  background: var(--white);
+  border: 1px solid var(--grey);
+  padding: 0.6em;
+  width: 100%;
+  border-radius: 4px;
+  font: inherit;
+  resize: vertical;
+  line-height: inherit;
+  color: inherit;
+}
+
+.syntex-notes-modal .submit-btn {
+  background: var(--accent-color);
+  color: var(--white);
+  border: none;
+  width: 100%;
+  padding: 0.6em 0;
+}
+.syntex-notes-modal .form-label-text {
+  margin-bottom: 0.5em;
+  font-weight: 400;
+  display: inline-block;
+}
+.syntex-notes-modal .form-label {
+  margin-bottom: 0.85em;
+  display: block;
 }
