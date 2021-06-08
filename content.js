@@ -1,19 +1,52 @@
-let selectedText = "";
-
 const body = document.querySelector("body");
 const form = document.createElement("form");
 const url = window.location.href;
 const title = document.querySelector("h1");
 
-let quote = ``;
-let comment = ``;
+// function to create Element with configurations
+const createElement = (type, labelTitle, className) => {
+  const element = document.createElement(type);
+  const label = document.createElement("label");
+  const span = document.createElement("span");
+
+  span.classList.add("form-label-text");
+  span.innerText = labelTitle;
+
+  element.classList.add(className);
+
+  label.appendChild(span);
+  label.appendChild(element);
+
+  form.appendChild(label);
+
+  return element;
+};
+
+const titleInput = createElement("input", "Article Title", "article-title");
+const quoteTextarea = createElement("textarea", "Quote", "quote");
+const commentTextarea = createElement("textarea", "Comments", "quote-comment");
+const submitButton = document.createElement("button");
+submitButton.classList.add("submit-btn");
+submitButton.innerText = `Add Notes`;
 
 form.classList.add("syntex-notes-modal", "hidden");
+// form.appendChild(titleInput);
+// form.appendChild(quoteTextarea);
+// form.appendChild(commentTextarea);
+form.appendChild(submitButton);
+
+body.appendChild(form);
 
 form.addEventListener("submit", (e) => {
   e.preventDefault();
+  console.log(quoteTextarea, commentTextarea);
 
-  console.log({ url, title: title.innerText, quote, comment });
+  console.log({
+    url,
+    title: title.innerText,
+    quote: quoteTextarea.innerText,
+    comment: commentTextarea.innerText,
+  });
 
   // chrome.storage.sync.get("notesAuth", (result) => {
   //   const { notesAuth } = result;
@@ -48,49 +81,9 @@ form.addEventListener("submit", (e) => {
   // });
 });
 
-const showFormContent = (title, quote) => {
-  const quoteComments = document.createElement("textarea");
-
-  function updateComments(e) {
-    alert(e.target.value);
-  }
-
-  const formContent = `<div class="form-content">
-    <label class="form-label">
-      <span class="form-label-text">Article Title</span>
-      <input value="${title}" class="article-title"/>
-    </label>
-
-    <label class="form-label">
-      <span class="form-label-text">Quote</span>
-      <textarea class="quote" rows="3">${quote}</textarea>
-    </label>
-
-    <label class="form-label">
-      <span class="form-label-text">Comments</span>
-      <textarea class="quote-comment" onchange="updateComments" crows="3"></textarea>
-    </label>
-
-    <button class="submit-btn">Add Note</button>
-  </div>`;
-
-  return formContent;
-};
-
-const submitButton = document.createElement("button");
-submitButton.innerText = "Submit";
-body.appendChild(form);
-
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
+  titleInput.value = title.innerText;
+  quoteTextarea.innerText = request.text;
+
   form.classList.remove("hidden");
-
-  const articleTitle = title.innerText;
-  const quoteContent = request.text;
-  quote = request.text;
-
-  const commentTextarea = form.querySelector("textarea");
-  console.log(commentTextarea);
-
-  // comment = commentTextarea.innerText;
-  form.innerHTML = showFormContent(articleTitle, quoteContent);
 });
